@@ -1,26 +1,50 @@
-#READ Input
-input = open("input.txt")
-output = open("output.txt", "w")
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+import fileinput
 
-n = int(input.readline())
+# list <=> stack, only use pop, append
+class Myqueue:
+    def __init__(self):
+        self.head = []
+        self.tail = []
+    def enqueue(self,num):
+        self.tail.append(num)
+    def dequeue(self):
+        if self.head:
+            self.head.pop()
+        else:
+            if self.tail:
+                self.tailToHead().pop()
+            else:
+                pass
+                
 
-money_arr = list(map(int, input.read().splitlines()))
 
-total = money_arr.pop()
-print(total)
-print(money_arr)
+    def print(self):
+        if self.head:
+            var =self.head.pop()
+            self.head.append(var)
+            return var
+        else:
+            if self.tail:
+                var = self.tailToHead().pop()
+                self.head.append(var)
+                return var 
+            else:
+                pass
 
-i=0
-output_var =0
-while (i<len(money_arr)):
-    if total - money_arr[i] in money_arr:
-        money_arr =list(filter(lambda a: a != total - money_arr[i] and a !=money_arr[i] , money_arr))
-        #money_arr.remove(total - money_arr[i])
-        #money_arr.remove(money_arr[i])
-        output_var+=1
-    else:
-        i+=1
+    def tailToHead(self):
+        self.head = [self.tail.pop() for _ in range(len(self.tail))]
+        return self.head
 
-output.write(str(output_var))
-input.close()
-output.close()
+
+k = Myqueue()
+k.enqueue(11)
+k.dequeue()
+k.enqueue(42)
+
+
+print(k.print())
+k,enqueue(28)
+print(k.print())
+
+
